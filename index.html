@@ -71,7 +71,7 @@
       /* 二级页面样式 */
       .secondary-page {
         position: fixed;
-        top: 0;
+        bottom: -100%;
         left: 0;
         width: 100%;
         height: 100%;
@@ -81,11 +81,12 @@
         background-position: center;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
+        transition: bottom 0.8s ease, opacity 0.8s ease, visibility 0.8s ease;
         z-index: 1;
     }
 
     .secondary-page.show {
+        bottom: 0;
         opacity: 1;
         visibility: visible;
     }
@@ -145,14 +146,16 @@
     /* 三级页面样式 */
     .tertiary-page {
         position: fixed;
-        top: 0;
+        bottom: -100%;
         left: 0;
         width: 100%;
         height: 100%;
         background-image: url('images/IMG_2186.JPG');
+        background-size: cover;
+        background-position: center;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
+        transition: bottom 0.8s ease, opacity 0.8s ease, visibility 0.8s ease;
         z-index: 3;
     }
 
@@ -169,6 +172,7 @@
     }
 
     .tertiary-page.show {
+        bottom: 0;
         opacity: 1;
         visibility: visible;
     }
@@ -256,7 +260,7 @@
     /* 常见问题页面样式 */
     .faq-page {
         position: fixed;
-        top: 0;
+        bottom: -100%;
         left: 0;
         width: 100%;
         height: 100%;
@@ -265,11 +269,12 @@
         background-position: center;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
+        transition: bottom 0.8s ease, opacity 0.8s ease, visibility 0.8s ease;
         z-index: 1;
     }
 
     .faq-page.show {
+        bottom: 0;
         opacity: 1;
         visibility: visible;
     }
