@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const loading = document.querySelector('.loading');
     const secondaryPage = document.querySelector('.secondary-page');
     const secondaryPageClose = document.querySelector('.secondary-page-close');
-
+    const faqPage = document.querySelector('.faq-page');
+    const faqPageClose = document.querySelector('.faq-page-close');
     
     if (button) {
         console.log('按钮元素已找到'); // 确认按钮元素存在
@@ -39,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     const newButtons = document.querySelectorAll('.new-button');
-    const faqPage = document.querySelector('.faq-page');
     const gotItBtn = document.querySelector('.got-it-btn');
 
     newButtons.forEach((newButton, index) => {
@@ -67,9 +67,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 为常见问题页面的关闭按钮添加点击事件
-    const faqPageClose = faqPage.querySelector('.secondary-page-close');
     faqPageClose.addEventListener('click', function() {
+        console.log('faqPageClose');
+        
         faqPage.classList.remove('show');
+    });
+
+    secondaryPageClose.addEventListener('click', function() {
+        console.log('secondaryPageClose');
+        secondaryPage.classList.remove('show');
     });
 
     // 获取退款规则按钮和三级页面元素
@@ -79,11 +85,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 点击退款规则按钮显示三级页面
     refundRulesBtn.addEventListener('click', () => {
+        console.log('refundRulesBtn');
         tertiaryPage.classList.add('show');
     });
 
     // 点击关闭按钮隐藏三级页面
     tertiaryPageClose.addEventListener('click', () => {
+        console.log('tertiaryPageClose');
         tertiaryPage.classList.remove('show');
     });
 });

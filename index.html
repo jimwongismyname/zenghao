@@ -27,6 +27,7 @@
         height: 550px;
         background-color: white;
         transition: bottom 0.3s ease-in-out; /* 添加过渡效果 */
+        z-index: 1;
       }
       /* 菜单显示时的样式 */
       .menu.show {
@@ -284,6 +285,19 @@
         z-index: 1;
     }
 
+    .faq-page-close {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        color: pink;
+        z-index: 3; /* 确保在遮罩层上面 */
+        background: none;
+        border: none;
+        padding: 10
+    }
+
     .faq-list {
         padding: 20px;
         margin-top: 20px;
@@ -406,7 +420,7 @@
 
     <!-- 常见问题页面 -->
     <div class="faq-page">
-        <button class="secondary-page-close">×</button>
+        <button class="faq-page-close">×</button>
         <div class="page-title">常见问题</div>
         <div class="faq-list">
             <div class="faq-item">
