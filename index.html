@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北墩第一深情</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 新增样式 */
+        .button-container {
+          display: flex;
+          justify-content: center;
+          gap: 20px; /* 按钮之间的间距 */
+        }
+  
+        .new-button {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+        }
+        /* 菜单样式 */
+      .menu {
+        position: fixed;
+        bottom: -550px; /* 初始位置在底部以下 */
+        left: 0;
+        width: 100%;
+        height: 550px;
+        background-color: white;
+        transition: bottom 0.3s ease-in-out; /* 添加过渡效果 */
+      }
+      /* 菜单显示时的样式 */
+      .menu.show {
+        bottom: 0;
+      }
+      /* 菜单标题样式 */
+      .menu-title {
+        padding: 10px;
+        background-color: #f0f0f0;
+        font-weight: bold;
+      }
+      /* 关闭按钮样式 */
+      .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+       /* 加载效果样式 */
+       .loading {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 16px solid rgba(0, 0, 0, 0.5); /* 黑色透明度为 0.5 */
+        border-top: 16px solid;
+        border-image: linear-gradient(to top, #ffb6c1, #ff69b4) 1; /* 渐变粉色 */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
+      }
+      /* 二级页面样式 */
+      .secondary-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('images/IMG_2184.JPG');
+        background-color: rgba(0, 0, 0, 0.5);
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 1;
+    }
+
+    .secondary-page.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* 添加遮罩层 */
+    .secondary-page::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .secondary-page-close {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        color: pink;
+        z-index: 2; /* 确保在遮罩层上面 */
+        background: none;
+        border: none;
+        padding: 10px;
+        z-index: 3;
+    }
+
+    .page-title {
+        text-align: center;
+        color: pink;
+        padding: 20px 0;
+        font-size: 18px;
+        font-weight: bold;
+        position: relative;
+        z-index: 2; /* 确保在遮罩层上面 */
+    }
+
+    /* 添加退款规则按钮样式 */
+    .refund-rules-btn {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: pink;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 2;
+        font-size: 16px;
+    }
+
+    /* 三级页面样式 */
+    .tertiary-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('images/IMG_2186.JPG');
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 3;
+    }
+
+    /* 添加遮罩层 */
+    .tertiary-page::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 4;
+    }
+
+    .tertiary-page.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .tertiary-page-close {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        color: pink;
+        z-index: 6; /* 确保在遮罩层上面 */
+    }
+
+    .tertiary-page-title {
+        text-align: center;
+        color: pink;
+        padding: 20px 0;
+        font-size: 18px;
+        font-weight: bold;
+        border-bottom: 1px solid #eee;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 5;
+    }
+
+    .tertiary-page-content {
+        padding: 20px;
+        height: calc(100% - 60px);
+        color: palevioletred;
+        overflow-y: auto;
+        margin-top: 60px;
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 5; /* 确保在遮罩层上面 */
+    }
+
+    /* 购买记录列表样式 */
+    .purchase-list {
+        padding: 20px;
+        margin-top: 20px;
+        z-index: 2;
+        position: relative;
+    }
+
+    .purchase-item {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .purchase-item-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .purchase-item-title {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .purchase-item-date {
+        color: #666;
+        font-size: 14px;
+    }
+
+    .purchase-item-details {
+        display: flex;
+        justify-content: space-between;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .purchase-item-status {
+        color: pink;
+    }
+
+    /* 常见问题页面样式 */
+    .faq-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('images/IMG_2189.JPG');
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 1;
+    }
+
+    .faq-page.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .faq-page::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .faq-list {
+        padding: 20px;
+        margin-top: 20px;
+        z-index: 2;
+        position: relative;
+    }
+
+    .faq-item {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        color: white;
+    }
+
+    .faq-item h3 {
+        color: pink;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .faq-item p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .got-it-btn {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: pink;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 2;
+        font-size: 16px;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>北墩第一深情</h1>
+    </header>
+
+    <!-- 添加按钮 -->
+    <div class="custom-button">获取入场券</div>
+    <!-- 新增两个并排的按钮 -->
+    <div class="button-container">
+        <button class="new-button">购买记录</button>
+        <button class="new-button">常见问题</button>
+    </div>
+
+    <!-- 菜单 -->
+    <div class="menu">
+        <div class="menu-title">微信支付菜单</div>
+        <button class="close-button">关闭</button>
+        <!-- 这里可以添加菜单内容 -->
+    </div>
+
+    <!-- 加载效果 -->
+    <div class="loading"></div>
+
+    <!-- 二级页面 -->
+    <div class="secondary-page">
+        <button class="secondary-page-close">×</button>
+        <div class="page-title">我的购买记录</div>
+        <div class="purchase-list">
+            <div class="purchase-item">
+                <div class="purchase-item-header">
+                    <span class="purchase-item-title">VIP入场券</span>
+                    <span class="purchase-item-date">2024-03-20</span>
+                </div>
+                <div class="purchase-item-details">
+                    <span class="purchase-item-price">¥199.00</span>
+                    <span class="purchase-item-status">未使用</span>
+                </div>
+            </div>
+
+            <div class="purchase-item">
+                <div class="purchase-item-header">
+                    <span class="purchase-item-title">普通入场券</span>
+                    <span class="purchase-item-date">2024-03-15</span>
+                </div>
+                <div class="purchase-item-details">
+                    <span class="purchase-item-price">¥99.00</span>
+                    <span class="purchase-item-status">已使用</span>
+                </div>
+            </div>
+
+            <div class="purchase-item">
+                <div class="purchase-item-header">
+                    <span class="purchase-item-title">限时特惠券</span>
+                    <span class="purchase-item-date">2024-03-10</span>
+                </div>
+                <div class="purchase-item-details">
+                    <span class="purchase-item-price">¥69.00</span>
+                    <span class="purchase-item-status">已过期</span>
+                </div>
+            </div>
+        </div>
+        <button class="refund-rules-btn">退款规则</button>
+    </div>
+
+    <!-- 三级页面 -->
+    <div class="tertiary-page">
+        <div class="tertiary-page-close">×</div>
+        <div class="tertiary-page-title">退款规则</div>
+        <div class="tertiary-page-content">
+            <!-- 这里添加退款规则的具体内容 -->
+            <p>1. 未使用的票券可申请退款</p>
+            <p>2. 退款将在3-5个工作日内完成</p>
+            <p>3. 已过期的票券不支持退款</p>
+            <p>4. 特殊情况请联系客服处理</p>
+            <!-- 可以继续添加更多内容 -->
+        </div>
+    </div>
+
+    <!-- 常见问题页面 -->
+    <div class="faq-page">
+        <button class="secondary-page-close">×</button>
+        <div class="page-title">常见问题</div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <h3>Q: 如何购买入场券？</h3>
+                <p>点击首页的"获取入场券"按钮，选择您想要的票券类型，按照提示完成支付即可。</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q: 入场券有效期是多久？</h3>
+                <p>普通入场券有效期为购买之日起30天，VIP入场券有效期为60天。</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q: 可以同时购买多张票吗？</h3>
+                <p>单次最多可购买5张入场券，如需更多请分多次购买。</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q: 如何查看购买记录？</h3>
+                <p>点击首页的"购买记录"按钮即可查看您的所有购买历史。</p>
+            </div>
+        </div>
+        <button class="got-it-btn">我知道了</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 增浩的公司</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

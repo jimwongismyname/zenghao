@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('images/IMG_2177.PNG'); /* 设置背景图片 */
+    background-size: cover; /* 让图片覆盖整个页面 */
+    background-position: center; /* 图片居中 */
+    background-repeat: no-repeat; /* 防止图片重复 */
+    background-attachment: fixed; /* 固定背景图片 */
+    color: #333; /* 设置文字颜色，确保与背景图片对比明显 */
+}
+
+header {
+    background-color: rgba(255, 255, 255, 0.0);
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* 自定义按钮样式 */
+.custom-button {
+    position: fixed; /* 固定定位 */
+    bottom: 150px; /* 距离底部70px */
+    left: 50%; /* 水平居中 */
+    transform: translateX(-50%); /* 水平居中 */
+    width: 170px; /* 宽度130px */
+    height: 55px; /* 高度55px */
+    background-color: transparent; /* 透明背景 */
+    border: 2px solid pink; /* 粉红色边框 */
+    border-radius: 27.5px; /* 圆角 */
+    color: pink; /* 文字颜色 */
+    font-size: 16px; /* 文字大小 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    transition: background-color 0.3s, color 0.3s; /* 添加过渡效果 */
+}
+
+/* 鼠标悬停效果 */
+.custom-button:hover {
+    background-color: pink; /* 背景变为粉红色 */
+    color: white; /* 文字变为白色 */
+}
+
+/* 新增按钮容器样式 */
+.button-container {
+    display: flex;
+    justify-content: center;
+    position: fixed; /* 固定定位 */
+    bottom: 120px; /* 老按钮 bottom 是 150px，这里设置为 120px 保证间距 20px */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 新增按钮样式 */
+.new-button {
+    background-color: transparent;
+    color: pink;
+    font-size: 13px; /* 文字大小 */
+    border: 2px solid black; /* 黑色边框 */
+    border-radius: 5px; /* 圆角 */
+    padding: 0px 0px; /* 内边距 */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* 添加过渡效果 */
+}
+
+/* 新增按钮鼠标悬停效果 */
+.new-button:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* 背景颜色变化 */
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: rgba(51, 51, 51, 0.8);
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
